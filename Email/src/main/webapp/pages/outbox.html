@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>发邮箱</title>
+</head>
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="../css/plugins/summernote/summernote-bs4.css"
+	rel="stylesheet">
+<link href="../css/animate.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+
+<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../js/commons.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#msg").text("");
+
+		$("#sendBtn").on("click", function() {
+			$.ajax({
+				type : "POST",
+				url : baseUrl + "/emailServlet?action=sendEamil",
+				dataType : "json",
+				data : $("#sendForm").serialize(),
+				success : function(resp) {
+					if (resp == "200") {
+						$("#msg").text("发送成功!");
+					} else {
+						$("#msg").text("发送失败!");
+					}
+				}
+			});
+		});
+		
+		/* 存草稿箱或垃圾箱*/
+		$("#abandon,#draft").on("click",function(){
+			var id=$(this).attr("id");
+			$.ajax({
+				type : "POST",
+				url : baseUrl + "/emailServlet?action=saveDraft",
+				dataType : "json",
+				data : $("#sendForm").serialize(),
+				success : function(resp) {
+					if (resp == "200"&&id=="abandon") {
+						$("#msg").text("已成功放入垃圾箱!");
+					} else if(resp == "200"&&id=="draft"){
+						$("#msg").text("保存成功!");
+					}else {
+						$("#msg").text("失败!");
+					}
+				}
+			});
+		});
+	});
+</script>
+<body>
+	<div class="wrapper wrapper-content" height="100%">
+
+		<div class="col-lg-9 animated fadeInRight">
+			<div class="mail-box-header">
+
+				<h2>发送邮件</h2>
+				<h4 style="color: red" id="msg"></h4>
+			</div>
+			<div class="mail-box">
+				<div class="mail-body">
+					<!-- 发送内容 -->
+					<form id="sendForm">
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">收件人:</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="sendUser"
+									name="sendUser">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">标题:</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="title" name="title">
+							</div>
+						</div>
+						<!-- 文本域 -->
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">内容</label>
+							<div class="col-sm-10">
+								<textarea rows="6" cols="74" id="sendContent" name="sendContent"></textarea>
+							</div>
+						</div>
+				</div>
+
+				<div class="mail-body text-right tooltip-demo">
+					<a href="#" id="sendBtn" class="btn btn-sm btn-primary"
+						data-toggle="tooltip" data-placement="top" title="发送邮件"><i
+						class="fa fa-reply"></i> 发送</a> <a href="#"
+						class="btn btn-white btn-sm" data-toggle="tooltip"
+						data-placement="top" title="放弃邮件" id="abandon"><i
+						class="fa fa-times"></i> 丢弃</a> <a href="#"
+						class="btn btn-white btn-sm" data-toggle="tooltip"
+						data-placement="top" title="转移到草稿文件夹" id="draft"><i class="fa fa-pencil"></i>
+						存草稿箱</a>
+				</div>
+				</form>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

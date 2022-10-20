@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+body {
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+}
+
+/* 划分左边区域 */
+#left_div {
+	position: fixed;
+	width: 480px;
+	height: 100%;
+}
+
+#left_div img {
+	width: 480px;
+	height: 100%;
+}
+
+/* 划分右边区域 */
+#right_div {
+	margin-left: 480px;
+}
+
+
+#right_center {
+	width: 100%;
+}
+
+#right_center input {
+	padding-left: 10px;
+}
+
+/* 设置文本样式 */
+#text1 {
+	font-size: 44px;
+	margin-bottom: 30px;
+}
+
+#text2 div {
+	font-size: 28px;
+	display: inline-block;
+}
+
+#text_div2 {
+	color: #359eff;
+	margin-left: 200px;
+	margin-bottom: 30px;
+	cursor: pointer;
+}
+
+/* 设置输入样式 */
+input {
+	border: 1px #aaa solid;
+	border-radius: 4px;
+	font-size: 20px;
+	height: 50px;
+}
+
+.input {
+	width: 500px;
+}
+
+.input_div {
+	margin-top: 30px;
+}
+
+/* 设置区域、手机号样式 */
+#areaCode {
+	width: 120px;
+}
+
+#phone_div {
+	margin-top: 30px;
+}
+
+#phoneNum {
+	margin-left: 10px;
+	width: 354px;
+}
+
+#info {
+	font-size: 14px;
+	height: 14px;
+	color: #999;
+	margin-top: 7px;
+}
+
+/* 设置验证码、发送验证码样式 */
+#verCode {
+	width: 120px;
+}
+
+#code_div {
+	margin-top: 30px;
+}
+
+#codeSubmit {
+	border: 1px #3083ff solid;
+	background-color: #3487ff;
+	color: #fff;
+	margin-left: 10px;
+	width: 364px;
+}
+
+#submit {
+	width: 510px;
+	border: 1px #3083ff solid;
+	background-color: #3487ff;
+	color: #fff;
+	margin-top: 40px;
+}

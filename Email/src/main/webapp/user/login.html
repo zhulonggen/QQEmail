@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>QQ邮箱登录页面</title>
+</head>
+<style type="text/css">
+@import "../css/login.css";
+</style>
+<!--引入“QQ邮箱页面.css”-->
+<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../js/commons.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#loginBtn").on("click", function() {
+			$.ajax({
+				type : "POST",
+				url : baseUrl+"/userServlet?action=isRegist",
+				dataType : "json",
+				data : {
+					"email" : $("#email").val(),
+					"pwd" : $("#pwd").val()
+				},
+				success : function(resp) {
+					if (resp == "201") {
+						$("#msg").text("用户名或密码错误");
+					} else if (resp == "200") {
+						$("#msg").text("");
+						window.location.href = "/Email/index.html";
+					}
+				}
+			});
+		});
+
+	});
+</script>
+
+<body>
+	<!--  ------------------------------------      header/顶部    ------------------------------------------>
+	<div class="header">
+		<a href=""><img src="../images/左上图一.jpg"></a>
+		<nav>
+			<!--<nav> 元素作为标注一个导航链接的区域。-->
+			<a href="">基本版</a> | <a href="">English</a> | <a href="">手机版</a> | <a
+				href="">企业邮箱</a>
+		</nav>
+	</div>
+
+	<!--  ------------------------------------      central/中部    ------------------------------------------>
+	<div class="central">
+		<div class="word">
+			<!--中部左文字-->
+			<h1>QQ邮箱，常联系！</h1>
+			<p>2500年前，人们飞鸽传书</p>
+			<p>185年前，莫尔斯发明了电报</p>
+			<p>52年前，第一封电子邮件发出</p>
+			<p>今天，QQ邮箱联系你、我、他</p>
+		</div>
+
+		<img src="../images/中间图.jpg" />
+		<!--中部中图片-->
+		<div class="logon">
+			<!--中部右登录框-->
+			<div class="firstpart">
+				<h5 style="color: red; text-align: center;" id="msg"></h5>
+			</div>
+			<input type="account" placeholder="支持QQ号/邮箱/手机号登录" id="email" />
+			<!--placeholder:占位符，显示在待输入框中-->
+			<input type="password" placeholder="QQ密码" id="pwd" /> <input
+				type="button" class="button" value="登&nbsp;录" id="loginBtn" /> <a
+				href="/Email/user/reigst.html" class="NewAccount">注册新账号</a>
+
+		</div>
+	</div>
+
+
+	<!--  ------------------------------------      footer/底部    ------------------------------------------>
+	<div class="footer">
+		<nav>
+			<a href="">关于腾讯</a> | <a href="">服务条款</a> | <a href="">隐私政策</a> | <a
+				href="">客服中心</a> | <a href="">联系我们</a> | <a href="">帮助中心</a> | ©1998
+			- 2021 Tencent Inc. All Rights Reserved.
+		</nav>
+	</div>
+
+</body>
+</html>

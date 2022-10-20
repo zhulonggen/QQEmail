@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.santi.mapper.ReceiveMapper">
+
+	<resultMap id="resultMapAll" type="receiveUser">
+		<id column="receive_id" property="receiveId"></id>
+		<result column="receive_email" property="receiveEmail"></result>
+		<result column="receive_title" property="receiveTitle"></result>
+		<result column="receive_date" property="receiveDate"></result>
+		<result column="receive_content" property="receiveContent"></result>
+		<result column="user_id" property="userId"></result>
+	</resultMap>
+
+	<insert id="addReceiveUser" useGeneratedKeys="true"
+		keyProperty="receiveId">
+		insert into
+		receive_email(receive_email,receive_title,receive_date,receive_content,user_id)
+		values(#{receiveEmail},#{receiveTitle},#{receiveDate},#{receiveContent},#{userId})
+	</insert>
+
+	<select id="showReceiveUser" resultMap="resultMapAll"
+		parameterType="java.util.List">
+		select receive_id,receive_email,receive_title,receive_date,receive_content
+		from receive_email
+	</select>
+
+	<delete id="removeEmail">
+		delete from receive_email where receive_id in
+		<foreach collection="array" open="(" close=")" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<select id="totalEmail" resultType="java.lang.Integer">
+		select count(*) from receive_email
+	</select>
+	
+</mapper>
+
+

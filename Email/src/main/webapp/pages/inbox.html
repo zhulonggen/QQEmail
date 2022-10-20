@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>收件箱</title>
+</head>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="../css/plugins/summernote/summernote-bs4.css"
+	rel="stylesheet">
+<link href="../css/animate.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+
+<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../js/commons.js"></script>
+<script type="text/javascript">
+	$(document)
+			.ready(function() {
+						$("#msg").text("");
+							$.ajax({
+									type : "POST",
+									url : baseUrl
+											+ "/emailServlet?action=receiveEmail",
+									data : {},
+									dataType : "json",
+									success : function(msg) {
+										console.log(msg);
+										console.log(msg.length);
+										var len = msg.length;
+										var html = "";
+										html += '<tr><th>全选'
+												+ '<input type="checkbox" name="all" /></th>'
+												+ '<th>发件人</th>'
+												+ '<th>标题</th>' + '<th>内容</th>'
+												+ '<th>时间</th>' + '</tr>';
+
+										for (var i = 0; i < len; i++) {
+											/* if (msg[i].receiveContent.length > 50) {//过多省略
+												msg[i].receiveContent = msg[i].receiveContent
+														.substring(0, 50)
+														+ ".....";
+											} */
+											html += '<tr><th><input type="checkbox" name="check" value="'+msg[i].receiveId+'"/></th>'
+													+ '<th>'
+													+ msg[i].receiveEmail
+													+ '</th>'
+													+ '<th>'
+													+ msg[i].receiveTitle
+													+ '</th>'
+													+ '<th>'
+													+ msg[i].receiveContent
+													+ '</th>'
+													+ '<th>'
+													+ msg[i].receiveDate
+													+ '</th>' + '</tr>';
+										}
+										
+										$("#table").html(html);
+										bindCheck();
+									} 
+								});
+						$("#remBtn").on("click",function() {
+									var id = '';
+							$(":checkbox[name='check']:checked").each(function() {
+										id += "," + $(this).val();
+								});
+						$.ajax({
+							url : baseUrl+"/emailServlet?action=removeEmail",
+							data : {id:id},
+							dataType : "json",
+							type : "post",
+							success : function(msg) {
+								if(msg=="200"){
+									$("#msg").text("删除成功!");
+									window.location.reload();
+								}else{
+									$("#msg").text("删除失败!");
+								}
+							}
+						})
+					});
+				});
+	/* 全选函数 */
+	function bindCheck() {
+		$("input[name='all']").on("click", function() {
+
+			var checked = $(this).attr("checked");
+
+			if (checked == undefined) {
+				$("input[name='check']").each(function(index, domEle) {
+					$(this).removeAttr("checked");
+				});
+			} else {
+				$("input[name='check']").each(function(index, domEle) {
+					$(this).attr("checked", checked);
+				});
+			}
+
+		});
+
+	}
+</script>
+
+<body>
+	<div class="wrapper wrapper-content" height="100%">
+
+		<div class="col-lg-9 animated fadeInRight">
+			<div class="mail-box-header">
+				<div class="float-right tooltip-demo">
+					<a href="#" class="btn btn-danger btn-sm"
+						data-toggle="tooltip" data-placement="top" title="删除电子邮件"
+						id="remBtn"><i class="fa fa-times"></i> 删除邮件</a>
+				</div>
+				<h2>收邮件</h2>
+				<h4 style="color: red" id="msg"></h4>
+			</div>
+			<div class="mail-box">
+				<center>
+					<table border="1" id="table"
+						class="table table-striped table-bordered table-hover"
+						table-layout=fixed; width=100%; align="center">
+					</table>
+				</center>
+
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

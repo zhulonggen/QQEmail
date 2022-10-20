@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.santi.mapper.SendUserMapper">
+
+	<resultMap id="resultMapAll" type="sendUser">
+		<id column="send_id" property="sendId"></id>
+		<result column="send_email" property="sendEmail"></result>
+		<result column="send_title" property="sendTitle"></result>
+		<result column="send_date" property="sendDate"></result>
+		<result column="send_content" property="sendContent"></result>
+		<result column="user_id" property="userId"></result>
+	</resultMap>
+
+	<select id="selectAll" resultMap="resultMapAll">
+		select * from send_email
+	</select>
+	
+	
+	
+	<insert id="receiveSendUserMsg" useGeneratedKeys="true" keyProperty="sendId">
+		insert into send_email(send_email,send_title,send_date,send_content,user_id) values(#{sendEmail},#{sendTitle},#{sendDate},#{sendContent},#{userId})
+	</insert>
+	
+	
+</mapper>
+
+

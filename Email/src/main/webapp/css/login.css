@@ -1,0 +1,241 @@
+* {/*全局设置*/
+    margin: 0; /*外边距*/
+    padding: 0;/*内边距*/
+}
+ 
+body {
+    font-size: 20px;/*文本大小*/
+}
+ 
+/*----------------------------------------------header----------------------------------------------*/
+.header{/*顶部设置*/
+    height:70px;
+    width: 100%;
+    background: #eff4fa;
+}
+ 
+.header img{/*顶部图片设置*/
+    height: 50px;
+    width:210px;
+    margin-left:20px;
+    margin-top: 10px;
+}
+ 
+.header nav{
+    font-size:1px;
+    color:darkgray;
+    margin-top:-35px;
+    margin-right: 50px;
+    text-align: right;
+}
+ 
+.header nav a{
+    color:blue;
+    text-decoration: none;
+}
+ 
+.header nav a:hover{/*鼠标悬停在a时*/
+    text-decoration: underline;/*显示下划线*/
+}
+ 
+/*----------------------------------------------central----------------------------------------------*/
+.central{/*中部设置*/
+    background-color:white;
+    height: 600px;
+    width: 1000px;
+    margin:auto;
+    margin-top:100px; /*边框顶部*/
+}
+ 
+.central .word{
+    float:left;    /*左浮动*/
+    margin-left:50px;
+    margin-top: 30px;
+}
+ 
+.central .word h1{
+    font-size:25px;
+    color:blue;
+    margin-bottom:15px;
+}
+ 
+.central .word p{
+    font-size:15px;
+    line-height: 25px;/*设置行间距*/
+}
+ 
+.central img{
+    float:left; /*左浮动，该浮动元素会尽量向左，直到它的外边缘碰到包含框或另一个浮动框的边框为止。*/
+    height: 350px;
+    width: 310px;
+    margin-top: 20px;
+    margin-right:60px;
+}
+ 
+.central .logon{/*设置登录边框*/
+    float:left;
+    margin-top:15px;
+    width:320px;
+    height:350px;
+    border-style: solid;/*设置边框为实线*/
+    border-radius: 5px;
+    border-width:1px; 
+    border-color:gray;
+}
+ 
+.central .logon .firstpart{/*设置内横线分栏*/
+    border-bottom-width: 1px;
+    border-bottom-style:solid;
+    border-bottom-color:gray;
+    height:50px;
+    line-height: 50px;
+}
+ 
+.central .logon ul li{/*设置列表*/
+    list-style-type: none;/*对列表元素进行初始化*/
+    font-size: 15px;
+    display: block;/*设置其为块级元素，占据一定矩形空间，可以通过设置高度、宽度、内外边距等属性，来调整的这个矩形；*/
+    height:25px;
+    color:gray;
+}
+ 
+.central .logon ul .wx{/*微信登录*/
+    float: left;
+    margin-left:50px;
+    cursor: pointer;/*鼠标指针变成手的形状*/
+}
+ 
+.central .logon ul .qq{/*QQ登录*/
+   /* float: right;
+    margin-right:50px; */
+    cursor: pointer;/*鼠标指针变成手的形状*/
+    
+}
+ 
+.central .logon input[type=account]{/*账号输入框*/
+    display: inline-block;/*1、使元素变成行内元素，拥有行内元素的特性，即可以与其他行内元素共享一行，不会独占一行. */
+    /*2、能够改变元素的height，width的值. 3、可以设置padding，margin的各个属性值，top，left，bottom，right都能够产生边距效果.*/
+    height:18px;
+    width:250px;
+    padding: 10px;/*设置内边距*/
+    margin-top: 30px ;
+    margin-left: 25px;
+}
+ 
+.central .logon input[type=password]{/*密码输入框*/
+    display: inline-block;
+    height:18px;
+    width:250px;
+    padding: 10px;/*设置内边距*/
+    margin-top: 15px ;
+    margin-left: 25px;
+}
+ 
+.central .logon .checkbox[type=checkbox]{/*选中按钮*/
+    float:left;
+    height:15px;
+    width:15px;
+    margin-top:20px;
+    margin-left:20px;
+    border-width: 1px;
+    border-style:solid;
+    border-color:blue;
+    background:white;
+}
+.central .logon p{/*设置按钮旁字体“ 下次自动登录 ”*/
+    margin-top:18px;
+    margin-left:3px;
+    float:left;
+    font-size:5px;
+}
+ 
+.central .logon .button[type=button]{/*设置登录按钮*/
+    height:45px;
+    width:260px;
+    margin-top: 10px;
+    margin-left: 30px;
+    background-color: blue;
+    text-align: center;
+    font-size:10px;
+    color:white;
+    border-width: 1px;
+    border-style:solid;
+    border-color:blue;
+    cursor: pointer;
+}
+ 
+.central .logon img{/* “扫码登录二维码示例图”设置*/
+    height: 25px;
+    width: 30px;
+    margin-left: 100px;
+    margin-right: 0px;
+    margin-top:10px;
+    float:center;
+}
+ 
+.central .logon .codeword {/*设置二维码示例旁字体：“ 扫码快捷登录 ”*/
+    margin-top:15px;
+    margin-bottom:5px;
+    margin-left:3px;
+    float:center;
+    color: blue;
+    font-size:5px;
+}
+ 
+.central .logon .codeword a{/*链接*/
+    text-decoration: none;
+}
+ 
+.central .logon .codeword a:hover{/*鼠标悬停在a时*/
+    text-decoration: underline;/*显示下划线*/
+}
+ 
+.central .logon .FogretPassword{/*忘了密码?*/
+    float:left;
+    color:blue;
+    font-size:3px;
+    margin-left:15px;
+    margin-top:20px;
+}
+ 
+.central .logon .NewAccount{/*注册新账号*/
+    float:right;
+    color:blue;
+    font-size:3px;
+    margin-right:15px;
+    margin-top:20px;
+}
+ 
+.central .logon a{/*链接*/
+    text-decoration: none;
+}
+ 
+.central .logon a:hover{/*鼠标悬停在a时*/
+    text-decoration: underline;/*显示下划线*/
+}
+ 
+/*----------------------------------------------footer----------------------------------------------*/
+.footer{/* 底部设置*/
+    background: #eff4fa;
+    bottom: 0;/*设置此部分据屏幕下边距距离为0*/
+    height:40px;
+    width: 100%; /* 也可将此处换为“right:0; ”*/
+    text-align: center;
+    position: fixed;/*相对于视图窗口定位 */
+}
+ 
+.footer nav {
+    font-size:1px;
+    color:darkgray;
+    margin-top:8px;
+    text-align: center;
+}
+ 
+.footer nav a{
+    color:blue;
+    text-decoration: none;
+}
+ 
+.footer nav a:hover{/*鼠标悬停在a时*/
+    text-decoration: underline;/*显示下划线*/
+}

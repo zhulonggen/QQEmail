@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>垃圾箱</title>
+</head>
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="../css/plugins/summernote/summernote-bs4.css"
+	rel="stylesheet">
+<link href="../css/animate.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+
+<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../js/commons.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var html=$("#content").html();
+		$.ajax({
+			url : baseUrl+ "/emailServlet?action=getListUser",
+			type : "post",
+			dataType : "json",
+			data : {},
+			success : function(msg) {
+				console.log(msg);
+				if(msg=="100"){
+					$("#msg").text("当前没有垃圾邮件");
+				}else{
+					for(var i=0;i<msg.length;i++){
+						html += "<tr>" +
+						'<td><input type="checkbox" name="id" value="'+msg[i].sendEmail+'" /></td>'+
+						'<td>'+msg[i].sendEmail+'</td>'+
+						'<td>'+msg[i].sendTitle +'</td>' +
+						'<td>'+ msg[i].sendContent +'</td>' +
+						'<td>'+msg[i].sendDate+'</td>' +
+					'</tr>';
+					}
+				}
+			$("#content").html(html);
+			bindCheck();
+			}
+		})
+		/* 选中删除 */
+		$("#remBtn").on("click",function(){
+			var ids = '';
+	 		$(":checkbox[name='id']:checked").each(function(){
+	 			ids = ids +"," + $(this).val();
+	 		});
+			/* 传到后台删除 */
+			$.ajax({
+				url : baseUrl+"/emailServlet?action=removeEmailList",
+				type : "post",
+				data : {ids:ids},
+				dataType : "json",
+				success : function(msg) {
+					if(msg=="200"){
+						$("#msg").text("删除成功!");
+						window.location.reload();
+					}else{
+						$("#msg").text("删除失败!");
+					}
+				}			
+			})
+		})
+	})
+	/* 全选函数 */
+	function bindCheck(){
+ 		$("input[name='ids']").on("click", function(){
+ 			
+ 			var checked = $(this).attr("checked");
+ 			
+ 			if(checked == undefined){
+ 				$("input[name='id']").each(function (index, domEle) { 
+ 					$(this).removeAttr("checked");
+ 				});
+ 			}else{
+ 				$("input[name='id']").each(function (index, domEle) { 
+ 					$(this).attr("checked" , checked);
+ 				});
+ 			}
+ 		});
+ 	}
+ 
+</script>
+
+<body>
+	<div class="wrapper wrapper-content" height="100%">
+
+		<div class="col-lg-9 animated fadeInRight">
+			<div class="mail-box-header">
+				<div class="float-right tooltip-demo">
+					<a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
+						data-placement="top" title="删除电子邮件" id="remBtn"><i
+						class="fa fa-times"></i> 删除邮件</a>
+				</div>
+				<h2>垃圾箱</h2>
+				<h4 style="color: red" id="msg"></h4>
+			</div>
+			<div class="mail-box">
+				<table style="width: 100%; height: 100%;" border="1">
+					<thead>
+						<tr>
+							<td><input type="checkbox" name="ids" /></td>
+							<td>发件人</td>
+							<td>标题</td>
+							<td>内容</td>
+							<td>时间</td>
+						</tr>
+					</thead>
+					<tbody id="content">
+
+
+					</tbody>
+				</table>
+
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

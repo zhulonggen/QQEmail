@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册QQ邮箱</title>
+</head>
+<link rel="stylesheet" type="text/css" href="../css/reigst.css">
+<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../js/commons.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#msg").text("");
+		$("#submit").on("click", function() {
+			var reg = /^([A-z0-9]{6,18})(\w|\-)+@[A-z0-9]+\.([A-z]{2,3})$/;
+			var email = $("#email").val();
+			if (reg.test(email)) {
+				$.ajax({
+					type : "POST",
+					url : baseUrl+"/userServlet?action=addUser",
+					dataType : "json",
+					data : {
+						"email" : $("#email").val(),
+						"pwd" : $("#pwd").val(),
+						"code" : $("#code").val()
+					},
+					success : function(resp) {
+						if (resp == "200") {
+							alert("注册成功,点击登录!");
+							window.location.href = "/Email/user/login.html";
+						} else if (resp == "0") {
+							alert("注册失败,请重新注册!");
+							window.location.reload();
+						} else {
+							alert("该用户已存在,请登录!");
+							window.location.reload();
+						}
+					}
+				});
+			} else {
+				$("#msg").text("邮箱格式错误,请重新注册!");
+			}
+		});
+		/* 返回 */
+		$("#return").on("click", function() {
+			window.location.href = "/Email/user/login.html";
+		})
+	});
+</script>
+<body>
+	<button id="return">返回</button>
+	<div id="right_div">
+		<div id="right_center">
+			<div id="text1">欢迎注册QQ邮箱</div>
+			<div id="text2">
+
+				<div id="text_div1">每一天乐在沟通</div>
+
+			</div>
+			<h3 style="color: red" id="msg"></h3>
+			<div class="input_div">
+				<input class="input" type=text placeholder="QQ邮箱账号" name="email"
+					id="email">
+			</div>
+			<div class="input_div">
+				<input class="input" type="password" placeholder="密码" name="pwd"
+					id="pwd">
+			</div>
+
+
+			<div id="code_div">
+				<input type="text" name="verCode" id="code" placeholder="验证码">
+				<img id="src" border="0" src="/Email/CaptchaServlet" title="点击更换图片"
+					style="width: 110px;">
+			</div>
+			<div>
+				<input type="submit" name="submit" id="submit" value="立即注册">
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

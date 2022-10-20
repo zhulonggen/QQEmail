@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>草稿箱</title>
+</head>
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="../css/plugins/summernote/summernote-bs4.css"
+	rel="stylesheet">
+<link href="../css/animate.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+
+<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../js/commons.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		/* 发送获取session作用域的user对象信息 */
+		$.ajax({
+			url:baseUrl+"/emailServlet?action=getUser",
+			type:"post",
+			data:{},
+			dataType:"json",
+			success:function(msg){
+				
+				if(msg=="100"){
+					$("#msg").text("当前没有最新草稿件!");				
+				}else{
+					$("#sendUser").val(msg.sendEmail);
+					$("#title").val(msg.sendTitle);
+					$("#sendContent").val(msg.sendContent);
+				}
+			}
+		});
+		/* 草稿箱里丢弃等于摧毁对象 */
+		$("#discarded").on("click",function(){
+			$.ajax({
+				type:"post",
+				url:baseUrl+"/emailServlet?action=destroyUser",
+				data:{},
+				dataType:"json",
+				success:function(msg){
+					if(msg=="200"){
+						$("#msg").text("丢弃成功!");				
+					}else{
+						$("#msg").text("错误操作!");				
+					}
+				}
+			})
+		});
+	});
+
+</script>
+
+
+<body>
+	<div class="wrapper wrapper-content" height="100%">
+		<div class="col-lg-9 animated fadeInRight">
+			<div class="mail-box-header">
+				<div class="float-right tooltip-demo">
+					 
+				</div>
+				<h2>草稿邮箱</h2>
+				<h4 style="color: red" id="msg"></h4>
+			</div>
+			<div class="mail-box">
+				<div class="mail-body">
+					<!-- 发送内容 -->
+					<form id="sendForm">
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">发送人:</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="sendUser"
+									name="sendUser">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">标题:</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="title" name="title">
+							</div>
+						</div>
+						<!-- 文本域 -->
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">内容</label>
+							<div class="col-sm-10">
+								<textarea rows="6" cols="74" id="sendContent" name="sendContent"></textarea>
+							</div>
+						</div>
+				</div>
+
+				<div class="mail-body text-right tooltip-demo">
+					 <a href="#"
+						class="btn btn-white btn-sm" data-toggle="tooltip"
+						data-placement="top" title="放弃邮件" id="discarded"><i class="fa fa-times"></i>
+						丢弃</a> 
+				</div>
+				</form>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

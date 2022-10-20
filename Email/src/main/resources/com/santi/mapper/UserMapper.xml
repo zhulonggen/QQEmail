@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.santi.mapper.UserMapper">
+
+	<resultMap id="resultMapAll" type="user">
+		<id column="user_id" property="userId"></id>
+		<result column="user_email" property="userEmail"></result>
+		<result column="user_pwd" property="userPwd"></result>
+		<result column="user_treePwd" property="userTreePwd"></result>
+	</resultMap>
+
+	<select id="getUser" resultMap="resultMapAll">
+		select * from user
+	</select>
+
+	<select id="queryUserByEmail" resultMap="resultMapAll">
+		select * from user where
+		user_email=#{userEmail} and user_pwd=#{userPwd}
+	</select>
+
+	<insert id="registUser" useGeneratedKeys="true"
+		keyProperty="userId">
+		insert into user(user_email,user_pwd)
+		values(#{userEmail},#{userPwd})
+	</insert>
+
+	<update id="inTreePwd">
+		update user set user_treePwd=#{userTreePwd} where
+		user_id=#{userId}
+	</update>
+
+	<select id="byKeyGetEmail" resultMap="resultMapAll">
+		select * from user where
+		user_id=#{userId}
+	</select>
+</mapper>
